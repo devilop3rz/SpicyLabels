@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="Spicer">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body ng-controller="SpiceController as spiceCtrl">
+
+    <div class="container-fluid">
+        <ul class="row">
+          <li class="spice" data-id="$index" ng-repeat="spice in spiceCtrl.spices track by $index" style="width:{{spiceCtrl.spiceLabelSize}}mm;height:{{spiceCtrl.spiceLabelSize}}mm;">
+            <button ng-click="spiceCtrl.removeSpice($index)" class="ui">x</button>
+            <img src="bg.jpg">
+            <span class="spice-label" ng-style="{'font-size':spiceCtrl.getFontsize(spice) + 'pt'}">
+                <span ng-style="{'height':spiceCtrl.getHeight(spice) + 'pt'}">{{spice}}</span>
+            </span>
+          </li>
+        </ul>
+    </div>
+
+    <section>
+        <div class="container">
+            <div id="add-spice-btn">
+            <div class="row ui">
+                    <div class="input-field">
+                    <label for="spice_name">Gewürzname</label>
+                     <input id="spice_name" type="text" ng-model="spiceCtrl.spiceName">
+                     <button class="prefix btn-primary" ng-click="spiceCtrl.addSpice(spiceCtrl.spiceName)">+</button>
+                 </div>
+                    </div>
+            </div>
+            <div class="row ui">
+              <div class="col s5">
+               <div class="row">
+                    <div class="input-field col s6">
+                      <input id="first_name" type="text" class="validate" ng-model="spiceCtrl.spiceLabelSize">
+                      <label for="first_name">Größe(mm)</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input id="last_name" type="text" class="validate">
+                      <label for="last_name">Schriftfarbe</label>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="col s2 offset-s5" style="text-align:right">
+              <div class="row">
+              <div class="input-field col s12">
+                <button class="btn-primary" ng-click="spiceCtrl.print()"><i class="material-icons">local_printshop</i><br>Labels drucken</button>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+<script id="jsbin-source-javascript" type="text/javascript">
+    'use strict';
+    var app = angular.module('Spicer', []);
+    app.controller('SpiceController', function() {
+
+        var SIZE_FACTOR = 2.9;
+
+        this.spices = ['Salz'];
+        this.spiceLabelSize = 30;
+      
+        this.addSpice = function (spiceName) {
+            if(spiceName.length > 9) {
+                spiceName = spiceName.slice(0, 6) + '\n' + spiceName.slice(6, spiceName.length);
+            }
+            this.spices.push(spiceName);
+        };
+      
+        this.getFontsize = function (spiceName) {
+            var len = spiceName.length;
+            if(spiceName.length > 9) {
+                len = 7;
+            } 
+            return this.spiceLabelSize/len * SIZE_FACTOR;
+        };
+
+        this.getHeight = function (spiceName) {
+            var len = spiceName.length;
+            var height = 0;
+
+            height = this.spiceLabelSize / len * SIZE_FACTOR;
+            if(spiceName.length > 9) {
+                len = 6;
+                height = (this.spiceLabelSize / len * SIZE_FACTOR) * 2;
+            }
+            return height;
+        };
+
+        this.removeSpice = function (id) {
+            this.spices.splice(id, 1);
+        };
+      
+        this.print = function () {
+
+            var mywindow = window.open('', 'my div', 'height=400,width=600');
+            var data = document.querySelector('.container').innerHTML;
+
+            mywindow.document.write('<html><head><title>my div</title>');
+            mywindow.document.write('<link rel="stylesheet" href="style.css" type="text/css" media="all"/>');
+         
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(data);
+            mywindow.document.write('</body></html>');
+
+          
+            setTimeout(function () {
+                mywindow.document.close(); // necessary for IE >= 10
+                mywindow.focus(); // necessary for IE >= 10
+                mywindow.print();
+                mywindow.close();
+            }, 1000);
+        };
+      
+    });
+    </script>
+</body>
+</html>
