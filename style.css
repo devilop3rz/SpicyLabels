@@ -1,7 +1,7 @@
 
   @font-face {
       font-family: peaelliebellie;
-      src: url("fonts/peaelliebellie.ttf");
+      src: url("https://raw.githubusercontent.com/devilop3rz/SpicyLabels/gh-pages/fonts/peaelliebellie.ttf");
   }
 
   body, html {
@@ -67,7 +67,7 @@ section {
   position: fixed;
   bottom: 0;
   width:100%;
-  background: url(bg.jpg);
+  background: url(https://raw.githubusercontent.com/devilop3rz/SpicyLabels/gh-pages/bg.jpg);
 }
 
 button {
