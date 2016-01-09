@@ -6,9 +6,10 @@
 
   <meta charset="utf-8">
   <title>SpicyLabels</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-<link href="https://raw.githubusercontent.com/devilop3rz/SpicyLabels/gh-pages/style.css" rel="stylesheet" type="text/css"/>
+<link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body ng-controller="SpiceController as spiceCtrl">
@@ -105,12 +106,13 @@
         };
       
         this.print = function () {
-
+          window.print();
+          /*
             var mywindow = window.open('', 'my div', 'height=400,width=600');
             var data = document.querySelector('.container').innerHTML;
 
-            mywindow.document.write('<html><head><title>SpicyLabels</title>');
-            mywindow.document.write('<link rel="stylesheet" href="https://raw.githubusercontent.com/devilop3rz/SpicyLabels/gh-pages/style.css" type="text/css" media="all"/>');
+            mywindow.document.write('<html><head><title>my div</title>');
+            mywindow.document.write('<link rel="stylesheet" href="style.css" type="text/css" media="all"/>');
          
             mywindow.document.write('</head><body >');
             mywindow.document.write(data);
@@ -123,6 +125,7 @@
                 mywindow.print();
                 mywindow.close();
             }, 1000);
+          */
         };
       
     });
