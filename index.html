@@ -51,11 +51,14 @@
                   </div>
               </div>
 
-              <div class="col s2 offset-s5" style="text-align:right">
+              <div class="col s4 offset-s3" style="text-align:right;margin-left: 25%">
               <div class="row">
-              <div class="input-field col s12">
-                <button class="btn-primary" ng-click="spiceCtrl.print()"><i class="material-icons">local_printshop</i><br>Labels drucken</button>
-                </div>
+                <div class="input-field col s6">
+                  <button class="btn-primary" ng-click="spiceCtrl.print()"><i class="material-icons">local_printshop</i><br>Labels drucken</button>
+                  </div>
+                  <div class="input-field col s6">
+                  <button class="btn-primary" ng-click="spiceCtrl.save()"><i class="material-icons">save</i><br>Labels speichern</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -71,7 +74,7 @@
 
         var SIZE_FACTOR = 2.9;
 
-        this.spices = ['Salz'];
+        this.spices = JSON.parse(window.localStorage.getItem('labels')) || ['Salz'];
         this.spiceLabelSize = 30;
       
         this.addSpice = function (spiceName) {
@@ -103,6 +106,14 @@
 
         this.removeSpice = function (id) {
             this.spices.splice(id, 1);
+        };
+
+        this.save = function () {
+            window.localStorage.removeItem('labels');
+            window.localStorage.setItem('labels', JSON.stringify(this.spices));
+            
+            alert('Labels wurden gespeichert')
+            alert('Labels wurden gespeichert')
         };
       
         this.print = function () {
